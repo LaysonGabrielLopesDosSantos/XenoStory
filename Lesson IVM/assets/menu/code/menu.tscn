@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://crlwqygro2xfr"]
+
+[ext_resource type="FontFile" uid="uid://djxh6jy12evy1" path="res://assets/fonts/Minecraft.ttf" id="1_firyp"]
+
+[node name="menu" type="Control"]
+custom_minimum_size = Vector2(1024, 768)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -384.0
+offset_right = 512.0
+offset_bottom = 384.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="start" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 397.0
+offset_top = 400.0
+offset_right = 627.0
+offset_bottom = 480.0
+pivot_offset = Vector2(115, 40)
+theme_override_fonts/normal_font = ExtResource("1_firyp")
+theme_override_font_sizes/normal_font_size = 50
+text = "Começar"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="title" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 100.0
+offset_right = 800.0
+offset_bottom = 200.0
+pivot_offset = Vector2(275, 50)
+theme_override_fonts/normal_font = ExtResource("1_firyp")
+theme_override_font_sizes/normal_font_size = 100
+text = "Lesson IVM"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="configuration" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 500.0
+offset_right = 622.0
+offset_bottom = 580.0
+pivot_offset = Vector2(110, 40)
+theme_override_fonts/normal_font = ExtResource("1_firyp")
+theme_override_font_sizes/normal_font_size = 50
+text = " Opções"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="credits" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 600.0
+offset_right = 617.0
+offset_bottom = 680.0
+pivot_offset = Vector2(105, 40)
+theme_override_fonts/normal_font = ExtResource("1_firyp")
+theme_override_font_sizes/normal_font_size = 50
+text = "Créditos"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="exit" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 462.0
+offset_top = 700.0
+offset_right = 562.0
+offset_bottom = 780.0
+pivot_offset = Vector2(50, 40)
+theme_override_fonts/normal_font = ExtResource("1_firyp")
+theme_override_font_sizes/normal_font_size = 50
+text = "Sair"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="cam" type="Camera2D" parent="."]
+position = Vector2(512, 384)
