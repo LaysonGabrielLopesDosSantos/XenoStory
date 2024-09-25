@@ -1,6 +1,391 @@
-[gd_scene load_steps=2 format=3 uid="uid://crlwqygro2xfr"]
+[gd_scene load_steps=23 format=3 uid="uid://crlwqygro2xfr"]
 
+[ext_resource type="Texture2D" uid="uid://bdijx0fkglbo1" path="res://assets/background/10.png" id="1_ehdul"]
 [ext_resource type="FontFile" uid="uid://djxh6jy12evy1" path="res://assets/fonts/Minecraft.ttf" id="1_firyp"]
+[ext_resource type="Texture2D" uid="uid://cdjhulr2q4p8x" path="res://assets/select/UI_Flat_Select01a_2.png" id="3_v1alu"]
+
+[sub_resource type="GDScript" id="GDScript_h85h5"]
+resource_name = "menu"
+script/source = "extends Control
+
+var select = 0
+@onready var selection = $selection
+@onready var start = $start
+@onready var options = $configuration
+@onready var credits = $credits
+@onready var exit = $exit
+
+func _select():
+	if Input.is_action_just_pressed(\"Up\"):
+		if select > 0:
+			select -= 1
+	if Input.is_action_just_pressed(\"Down\"):
+		if select < 3:
+			select += 1
+	if select == 0:
+		selection.position.x = 650
+		selection.position.y = start.position.y + 32
+	if select == 1:
+		selection.position.x = 630
+		selection.position.y = options.position.y + 32
+	if select == 2:
+		selection.position.x = 640
+		selection.position.y = credits.position.y + 32
+	if select == 3:
+		selection.position.x = 600
+		selection.position.y = exit.position.y + 28
+		
+func _process(delta):
+	_select()
+"
+
+[sub_resource type="Animation" id="Animation_je3k2"]
+resource_name = "wait"
+length = 20.0
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(280, -0.25, 0, 0.25, 0, 736, -0.25, 0, 0.25, 0, 296, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 20, 40)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(384, -0.25, 0, 0.25, 0, 392, -0.25, 0, 0.25, 0, 384, -0.25, 0, 0.25, 0, 400, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 10, 20, 40)
+}
+
+[sub_resource type="Animation" id="Animation_qu4fl"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(512, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(392, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa2dr"]
+_data = {
+"RESET": SubResource("Animation_qu4fl"),
+"wait": SubResource("Animation_je3k2")
+}
+
+[sub_resource type="Animation" id="Animation_ihlvp"]
+resource_name = "wait"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(250, -0.25, 0, 0.25, 0, 256, -0.25, 0, 0.25, 0, 256, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5, 5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(101, -0.25, 0, 0.25, 0, 112, -0.25, 0, 0.25, 0, 104, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5, 5)
+}
+
+[sub_resource type="Animation" id="Animation_hks87"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(256, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(112, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iaek3"]
+_data = {
+"RESET": SubResource("Animation_hks87"),
+"wait": SubResource("Animation_ihlvp")
+}
+
+[sub_resource type="Animation" id="Animation_eo2af"]
+resource_name = "wait"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(397, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0, 408, -0.25, 0, 0.25, 0, 400, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5, 5)
+}
+
+[sub_resource type="Animation" id="Animation_8k5sc"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(392, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(408, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_arjwe"]
+_data = {
+"RESET": SubResource("Animation_8k5sc"),
+"wait": SubResource("Animation_eo2af")
+}
+
+[sub_resource type="Animation" id="Animation_kj4pm"]
+resource_name = "wait"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(390, -0.25, 0, 0.25, 0, 392, -0.25, 0, 0.25, 0, 392, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5, 5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(500, -0.25, 0, 0.25, 0, 512, -0.25, 0, 0.25, 0, 496, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5, 5)
+}
+
+[sub_resource type="Animation" id="Animation_o07ni"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7phf6"]
+_data = {
+"RESET": SubResource("Animation_o07ni"),
+"wait": SubResource("Animation_kj4pm")
+}
+
+[sub_resource type="Animation" id="Animation_savoi"]
+resource_name = "wait"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0, 400, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(600, -0.25, 0, 0.25, 0, 608, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5)
+}
+
+[sub_resource type="Animation" id="Animation_0x3gg"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(600, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_afnj1"]
+_data = {
+"RESET": SubResource("Animation_0x3gg"),
+"wait": SubResource("Animation_savoi")
+}
+
+[sub_resource type="Animation" id="Animation_jubhr"]
+resource_name = "wait"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(450, -0.25, 0, 0.25, 0, 448, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(700, -0.25, 0, 0.25, 0, 712, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5)
+}
+
+[sub_resource type="Animation" id="Animation_u7hwf"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(450, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(700, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70c6q"]
+_data = {
+"RESET": SubResource("Animation_u7hwf"),
+"wait": SubResource("Animation_jubhr")
+}
 
 [node name="menu" type="Control"]
 custom_minimum_size = Vector2(1024, 768)
@@ -16,26 +401,34 @@ offset_right = 512.0
 offset_bottom = 384.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_h85h5")
 
-[node name="start" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 397.0
-offset_top = 400.0
-offset_right = 627.0
-offset_bottom = 480.0
-pivot_offset = Vector2(115, 40)
-theme_override_fonts/normal_font = ExtResource("1_firyp")
-theme_override_font_sizes/normal_font_size = 50
-text = "Começar"
-scroll_active = false
-shortcut_keys_enabled = false
+[node name="cam" type="Camera2D" parent="."]
+position = Vector2(512, 384)
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(512, 392)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("1_ehdul")
+
+[node name="background animation" type="AnimationPlayer" parent="background"]
+libraries = {
+"": SubResource("AnimationLibrary_qa2dr")
+}
+autoplay = "wait"
+
+[node name="selection" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(600, 735)
+scale = Vector2(2, 2)
+texture = ExtResource("3_v1alu")
 
 [node name="title" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 250.0
-offset_top = 100.0
-offset_right = 800.0
-offset_bottom = 200.0
+offset_left = 256.0
+offset_top = 112.0
+offset_right = 806.0
+offset_bottom = 212.0
 pivot_offset = Vector2(275, 50)
 theme_override_fonts/normal_font = ExtResource("1_firyp")
 theme_override_font_sizes/normal_font_size = 100
@@ -43,12 +436,35 @@ text = "Lesson IVM"
 scroll_active = false
 shortcut_keys_enabled = false
 
+[node name="title animation" type="AnimationPlayer" parent="title"]
+libraries = {
+"": SubResource("AnimationLibrary_iaek3")
+}
+autoplay = "wait"
+
+[node name="start" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 408.0
+offset_right = 622.0
+offset_bottom = 488.0
+pivot_offset = Vector2(115, 40)
+theme_override_fonts/normal_font = ExtResource("1_firyp")
+theme_override_font_sizes/normal_font_size = 50
+text = "Começar"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="start animation" type="AnimationPlayer" parent="start"]
+libraries = {
+"": SubResource("AnimationLibrary_arjwe")
+}
+autoplay = "wait"
+
 [node name="configuration" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 402.0
-offset_top = 500.0
-offset_right = 622.0
-offset_bottom = 580.0
+offset_right = 220.0
+offset_bottom = 79.9998
 pivot_offset = Vector2(110, 40)
 theme_override_fonts/normal_font = ExtResource("1_firyp")
 theme_override_font_sizes/normal_font_size = 50
@@ -56,11 +472,17 @@ text = " Opções"
 scroll_active = false
 shortcut_keys_enabled = false
 
+[node name="configuration animation" type="AnimationPlayer" parent="configuration"]
+libraries = {
+"": SubResource("AnimationLibrary_7phf6")
+}
+autoplay = "wait"
+
 [node name="credits" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 407.0
+offset_left = 400.0
 offset_top = 600.0
-offset_right = 617.0
+offset_right = 610.0
 offset_bottom = 680.0
 pivot_offset = Vector2(105, 40)
 theme_override_fonts/normal_font = ExtResource("1_firyp")
@@ -69,11 +491,17 @@ text = "Créditos"
 scroll_active = false
 shortcut_keys_enabled = false
 
+[node name="credits animation" type="AnimationPlayer" parent="credits"]
+libraries = {
+"": SubResource("AnimationLibrary_afnj1")
+}
+autoplay = "wait"
+
 [node name="exit" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 462.0
+offset_left = 450.0
 offset_top = 700.0
-offset_right = 562.0
+offset_right = 550.0
 offset_bottom = 780.0
 pivot_offset = Vector2(50, 40)
 theme_override_fonts/normal_font = ExtResource("1_firyp")
@@ -82,5 +510,22 @@ text = "Sair"
 scroll_active = false
 shortcut_keys_enabled = false
 
-[node name="cam" type="Camera2D" parent="."]
-position = Vector2(512, 384)
+[node name="exit animation" type="AnimationPlayer" parent="exit"]
+libraries = {
+"": SubResource("AnimationLibrary_70c6q")
+}
+autoplay = "wait"
+
+[node name="snow" type="CPUParticles2D" parent="."]
+position = Vector2(1088, -98)
+amount = 1000
+lifetime = 200.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 11.45
+direction = Vector2(-1, 1)
+gravity = Vector2(-1, 1)
+initial_velocity_min = 5.0
+initial_velocity_max = 100.0
+scale_amount_max = 5.0
