@@ -1,0 +1,119 @@
+[gd_scene load_steps=8 format=3 uid="uid://nhjqb1odok6r"]
+
+[ext_resource type="FontFile" uid="uid://b4mgjyyovoaed" path="res://assets/fonts/Gamer.ttf" id="1_4f3sh"]
+[ext_resource type="Texture2D" uid="uid://ch3khdwaqjbpi" path="res://assets/background/10 (2).png" id="1_ejdcy"]
+
+[sub_resource type="GDScript" id="GDScript_su774"]
+resource_name = "creditos"
+script/source = "extends Control
+
+func _process(delta):
+	if Input.is_action_just_pressed(\"Escape\"):
+		get_tree().change_scene_to_file(\"res://assets/menu/code/menu.tscn\")
+"
+
+[sub_resource type="Animation" id="Animation_wi8yn"]
+resource_name = "wait"
+length = 20.0
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(738, -0.25, 0, 0.25, 0, 288, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 20)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(376, -0.25, 0, 0.25, 0, 376, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 20)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q5jml"]
+_data = {
+"wait": SubResource("Animation_wi8yn")
+}
+
+[sub_resource type="Animation" id="Animation_ak71q"]
+resource_name = "wait"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(220, -0.25, 0, 0.25, 0, 224, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(200, -0.25, 0, 0.25, 0, 224, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.5)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sdvb1"]
+_data = {
+"wait": SubResource("Animation_ak71q")
+}
+
+[node name="creditos" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_su774")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(303.157, 376)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("1_ejdcy")
+
+[node name="background animation" type="AnimationPlayer" parent="background"]
+libraries = {
+"": SubResource("AnimationLibrary_q5jml")
+}
+autoplay = "wait"
+
+[node name="credits" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 221.159
+offset_top = 206.956
+offset_right = 871.159
+offset_bottom = 536.956
+pivot_offset = Vector2(325, 165)
+theme_override_fonts/normal_font = ExtResource("1_4f3sh")
+theme_override_font_sizes/normal_font_size = 75
+text = "Programaçao: Layson
+Design: Layson e Eduarda
+História: Eduarda
+Músicas: Eduarda
+Polimento: Layson"
+scroll_active = false
+
+[node name="credits animation" type="AnimationPlayer" parent="credits"]
+libraries = {
+"": SubResource("AnimationLibrary_sdvb1")
+}
+autoplay = "wait"

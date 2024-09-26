@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://crlwqygro2xfr"]
 
 [ext_resource type="Texture2D" uid="uid://bdijx0fkglbo1" path="res://assets/background/10.png" id="1_ehdul"]
-[ext_resource type="FontFile" uid="uid://djxh6jy12evy1" path="res://assets/fonts/Minecraft.ttf" id="1_firyp"]
+[ext_resource type="FontFile" uid="uid://b4mgjyyovoaed" path="res://assets/fonts/Gamer.ttf" id="3_bc77i"]
 [ext_resource type="Texture2D" uid="uid://cdjhulr2q4p8x" path="res://assets/select/UI_Flat_Select01a_2.png" id="3_v1alu"]
 
 [sub_resource type="GDScript" id="GDScript_h85h5"]
@@ -15,7 +15,7 @@ var select = 0
 @onready var credits = $credits
 @onready var exit = $exit
 
-func _select():
+func _process(delta):
 	if Input.is_action_just_pressed(\"Up\"):
 		if select > 0:
 			select -= 1
@@ -31,13 +31,37 @@ func _select():
 	if select == 2:
 		selection.position.x = 640
 		selection.position.y = credits.position.y + 32
+		if Input.is_action_just_pressed(\"Enter\"):
+			get_tree().change_scene_to_file(\"res://assets/creditos/creditos.tscn\")
 	if select == 3:
 		selection.position.x = 600
 		selection.position.y = exit.position.y + 28
-		
-func _process(delta):
-	_select()
 "
+
+[sub_resource type="Animation" id="Animation_qu4fl"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(512, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(392, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_je3k2"]
 resource_name = "wait"
@@ -66,7 +90,13 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 10, 20, 40)
 }
 
-[sub_resource type="Animation" id="Animation_qu4fl"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa2dr"]
+_data = {
+"RESET": SubResource("Animation_qu4fl"),
+"wait": SubResource("Animation_je3k2")
+}
+
+[sub_resource type="Animation" id="Animation_hks87"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -76,7 +106,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(512, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(256, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "bezier"
@@ -87,14 +117,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(392, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(112, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa2dr"]
-_data = {
-"RESET": SubResource("Animation_qu4fl"),
-"wait": SubResource("Animation_je3k2")
 }
 
 [sub_resource type="Animation" id="Animation_ihlvp"]
@@ -124,7 +148,13 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2.5, 5)
 }
 
-[sub_resource type="Animation" id="Animation_hks87"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iaek3"]
+_data = {
+"RESET": SubResource("Animation_hks87"),
+"wait": SubResource("Animation_ihlvp")
+}
+
+[sub_resource type="Animation" id="Animation_8k5sc"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -134,7 +164,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(256, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(392, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "bezier"
@@ -145,14 +175,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(112, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(408, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_iaek3"]
-_data = {
-"RESET": SubResource("Animation_hks87"),
-"wait": SubResource("Animation_ihlvp")
 }
 
 [sub_resource type="Animation" id="Animation_eo2af"]
@@ -182,8 +206,14 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2.5, 5)
 }
 
-[sub_resource type="Animation" id="Animation_8k5sc"]
-length = 0.001
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_arjwe"]
+_data = {
+"RESET": SubResource("Animation_8k5sc"),
+"wait": SubResource("Animation_eo2af")
+}
+
+[sub_resource type="Animation" id="Animation_o07ni"]
+length = 2.0
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -192,7 +222,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(392, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "bezier"
@@ -203,14 +233,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(408, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_arjwe"]
-_data = {
-"RESET": SubResource("Animation_8k5sc"),
-"wait": SubResource("Animation_eo2af")
 }
 
 [sub_resource type="Animation" id="Animation_kj4pm"]
@@ -240,7 +264,13 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2.5, 5)
 }
 
-[sub_resource type="Animation" id="Animation_o07ni"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7phf6"]
+_data = {
+"RESET": SubResource("Animation_o07ni"),
+"wait": SubResource("Animation_kj4pm")
+}
+
+[sub_resource type="Animation" id="Animation_0x3gg"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -250,7 +280,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "bezier"
@@ -261,14 +291,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(600, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7phf6"]
-_data = {
-"RESET": SubResource("Animation_o07ni"),
-"wait": SubResource("Animation_kj4pm")
 }
 
 [sub_resource type="Animation" id="Animation_savoi"]
@@ -298,7 +322,13 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2.5)
 }
 
-[sub_resource type="Animation" id="Animation_0x3gg"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_afnj1"]
+_data = {
+"RESET": SubResource("Animation_0x3gg"),
+"wait": SubResource("Animation_savoi")
+}
+
+[sub_resource type="Animation" id="Animation_u7hwf"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -308,7 +338,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(450, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "bezier"
@@ -319,14 +349,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(600, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(700, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_afnj1"]
-_data = {
-"RESET": SubResource("Animation_0x3gg"),
-"wait": SubResource("Animation_savoi")
 }
 
 [sub_resource type="Animation" id="Animation_jubhr"]
@@ -354,31 +378,6 @@ tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(700, -0.25, 0, 0.25, 0, 712, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 2.5)
-}
-
-[sub_resource type="Animation" id="Animation_u7hwf"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(450, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(700, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_70c6q"]
@@ -428,10 +427,10 @@ layout_mode = 0
 offset_left = 256.0
 offset_top = 112.0
 offset_right = 806.0
-offset_bottom = 212.0
+offset_bottom = 262.0
 pivot_offset = Vector2(275, 50)
-theme_override_fonts/normal_font = ExtResource("1_firyp")
-theme_override_font_sizes/normal_font_size = 100
+theme_override_fonts/normal_font = ExtResource("3_bc77i")
+theme_override_font_sizes/normal_font_size = 140
 text = "Lesson IVM"
 scroll_active = false
 shortcut_keys_enabled = false
@@ -449,8 +448,8 @@ offset_top = 408.0
 offset_right = 622.0
 offset_bottom = 488.0
 pivot_offset = Vector2(115, 40)
-theme_override_fonts/normal_font = ExtResource("1_firyp")
-theme_override_font_sizes/normal_font_size = 50
+theme_override_fonts/normal_font = ExtResource("3_bc77i")
+theme_override_font_sizes/normal_font_size = 80
 text = "Começar"
 scroll_active = false
 shortcut_keys_enabled = false
@@ -466,8 +465,8 @@ layout_mode = 0
 offset_right = 220.0
 offset_bottom = 79.9998
 pivot_offset = Vector2(110, 40)
-theme_override_fonts/normal_font = ExtResource("1_firyp")
-theme_override_font_sizes/normal_font_size = 50
+theme_override_fonts/normal_font = ExtResource("3_bc77i")
+theme_override_font_sizes/normal_font_size = 80
 text = " Opções"
 scroll_active = false
 shortcut_keys_enabled = false
@@ -485,8 +484,8 @@ offset_top = 600.0
 offset_right = 610.0
 offset_bottom = 680.0
 pivot_offset = Vector2(105, 40)
-theme_override_fonts/normal_font = ExtResource("1_firyp")
-theme_override_font_sizes/normal_font_size = 50
+theme_override_fonts/normal_font = ExtResource("3_bc77i")
+theme_override_font_sizes/normal_font_size = 75
 text = "Créditos"
 scroll_active = false
 shortcut_keys_enabled = false
@@ -504,8 +503,8 @@ offset_top = 700.0
 offset_right = 550.0
 offset_bottom = 780.0
 pivot_offset = Vector2(50, 40)
-theme_override_fonts/normal_font = ExtResource("1_firyp")
-theme_override_font_sizes/normal_font_size = 50
+theme_override_fonts/normal_font = ExtResource("3_bc77i")
+theme_override_font_sizes/normal_font_size = 75
 text = "Sair"
 scroll_active = false
 shortcut_keys_enabled = false
